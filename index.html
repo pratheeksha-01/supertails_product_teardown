@@ -9,18 +9,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
+    <!-- Chosen Palette: Warm Pet Wellness (Neutrals, Browns, Terracotta) -->
+    <!-- Application Structure Plan: The SPA is structured as a scroll-spy dashboard with a fixed sidebar navigation. This allows users to jump instantly between logical phases of the teardown (Context, Problem, Solution, Execution) rather than clicking through linear slides. Interactive elements like tabs for personas and a live slider for the proposed feature simulate a dynamic product review experience. -->
+    <!-- Visualization & Content Choices: 1. Market Data -> Doughnut Chart (Chart.js) -> Hover interaction -> Shows market dominance visually. 2. Personas -> Tabbed Interface (HTML/JS) -> Click -> Compares user types compactly. 3. Proposed Solution -> Interactive Range Slider UI (HTML/JS) -> Drag -> Demonstrates the dynamic logic of the "Delivery Promise Score" feature in real-time. NO SVG/Mermaid. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        bgLime: '#BCE252', // Bright lime green from reference
-                        sidebarWhite: '#FFFFFF',
-                        cardWhite: '#FFFFFF',
-                        textDark: '#1A1A1A',
-                        textMuted: '#666666',
-                        accentDarkGreen: '#1E4620', // Dark green for active states/accents
-                        accentBlack: '#111111', // Black for friction banners
+                        bgWarm: '#FAF5F0',
+                        cardWarm: '#F8EBE1',
+                        textDark: '#4A3B32',
+                        accentBrown: '#8C6239',
+                        accentLight: '#E6D0B3',
+                        accentPop: '#E26D5C',
+                        alertRed: '#D90429',
                         successGreen: '#2A9D8F'
                     },
                     fontFamily: {
@@ -32,44 +37,31 @@
         }
     </script>
     <style>
-        body { font-family: 'Lato', sans-serif; color: #1A1A1A; background-color: #BCE252; }
+        body { font-family: 'Lato', sans-serif; color: #4A3B32; background-color: #FAF5F0; }
         h1, h2, h3, h4, .font-heading { font-family: 'Poppins', sans-serif; }
         
-        /* Custom scrollbar for a cleaner look */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #aaa; }
-
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 300px;
+            max-width: 400px;
             margin-left: auto;
             margin-right: auto;
-            height: 250px;
+            height: 300px;
+            max-height: 400px;
         }
 
-        .nav-link {
-            border-radius: 8px;
-            color: #666666;
-        }
-        .nav-link:hover {
-            background-color: #f3f4f6;
-            color: #1A1A1A;
-        }
         .nav-link.active {
-            background-color: #1E4620;
-            color: #FFFFFF;
+            background-color: #8C6239;
+            color: #FFFDF9;
             font-weight: 600;
+            transform: translateX(10px);
         }
 
-        .bento-card {
-            background: #FFFFFF;
-            border-radius: 24px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
-            padding: 2rem;
-            margin-bottom: 1.5rem;
+        .glass-card {
+            background: rgba(255, 253, 249, 0.9);
+            backdrop-filter: blur(10px);
+            border: 2px solid #E6D0B3;
+            box-shadow: 8px 8px 0px #E6D0B3;
         }
 
         .interactive-range {
@@ -77,7 +69,7 @@
             width: 100%;
             height: 12px;
             border-radius: 10px;
-            background: #4A7850; /* Darker track for the green box */
+            background: #E6D0B3;
             outline: none;
         }
 
@@ -87,270 +79,412 @@
             width: 25px;
             height: 25px;
             border-radius: 50%;
-            background: #BCE252; /* Lime thumb */
+            background: #E26D5C;
             cursor: pointer;
-            border: 3px solid #FFFFFF;
+            border: 3px solid #FFFDF9;
             box-shadow: 0 0 10px rgba(0,0,0,0.2);
         }
     </style>
 </head>
 <body class="flex h-screen overflow-hidden">
 
-    <!-- Sidebar -->
-    <aside class="w-72 bg-sidebarWhite flex flex-col h-full z-20 hidden md:flex shrink-0 shadow-[4px_0_24px_rgba(0,0,0,0.05)] relative rounded-r-[32px]">
-        <div class="p-8">
-            <h1 class="text-3xl font-heading font-extrabold text-textDark flex items-center gap-3 tracking-tight">
-                <i class="fa-solid fa-dog text-bgLime"></i> supertails
+    <aside class="w-72 bg-cardWarm border-r-4 border-accentLight flex flex-col h-full z-20 hidden md:flex shrink-0 shadow-xl relative">
+        <div class="p-8 border-b-2 border-accentLight border-dashed">
+            <h1 class="text-2xl font-heading font-extrabold text-accentPop flex items-center gap-2 tracking-tight">
+                <i class="fa-solid fa-paw text-accentBrown"></i> supertails
             </h1>
+            <p class="text-sm font-bold text-accentBrown mt-2 uppercase tracking-widest"> </p>
         </div>
-        <nav class="flex-1 px-6 space-y-2 overflow-y-auto" id="sidebar-nav">
-            <a href="#intro" class="nav-link block px-4 py-3 transition-all duration-300 active">
-                <i class="fa-solid fa-house mr-3 w-5"></i> Introduction
+        <nav class="flex-1 p-6 space-y-4 overflow-y-auto" id="sidebar-nav">
+            <a href="#intro" class="nav-link block px-4 py-3 rounded-xl text-textDark hover:bg-white hover:text-accentBrown transition-all duration-300 active">
+                <i class="fa-solid fa-rocket mr-3 w-5"></i> Introduction
             </a>
-            <a href="#context" class="nav-link block px-4 py-3 transition-all duration-300">
+            <a href="#context" class="nav-link block px-4 py-3 rounded-xl text-textDark hover:bg-white hover:text-accentBrown transition-all duration-300">
                 <i class="fa-solid fa-chart-pie mr-3 w-5"></i> Market Context
             </a>
-            <a href="#personas" class="nav-link block px-4 py-3 transition-all duration-300">
+            <a href="#personas" class="nav-link block px-4 py-3 rounded-xl text-textDark hover:bg-white hover:text-accentBrown transition-all duration-300">
                 <i class="fa-solid fa-users mr-3 w-5"></i> Personas & Wins
             </a>
-            <a href="#friction" class="nav-link block px-4 py-3 transition-all duration-300">
-                <i class="fa-solid fa-circle-exclamation mr-3 w-5"></i> The Friction
+            <a href="#friction" class="nav-link block px-4 py-3 rounded-xl text-textDark hover:bg-white hover:text-accentBrown transition-all duration-300">
+                <i class="fa-solid fa-triangle-exclamation mr-3 w-5"></i> The Friction
             </a>
-            <a href="#solution" class="nav-link block px-4 py-3 transition-all duration-300">
-                <i class="fa-solid fa-layer-group mr-3 w-5"></i> Proposed Fixes
+            <a href="#solution" class="nav-link block px-4 py-3 rounded-xl text-textDark hover:bg-white hover:text-accentBrown transition-all duration-300">
+                <i class="fa-solid fa-lightbulb mr-3 w-5"></i> Proposed Fix
             </a>
-            <a href="#execution" class="nav-link block px-4 py-3 transition-all duration-300">
-                <i class="fa-solid fa-arrow-right-to-bracket mr-3 w-5"></i> Execution
+            <a href="#execution" class="nav-link block px-4 py-3 rounded-xl text-textDark hover:bg-white hover:text-accentBrown transition-all duration-300">
+                <i class="fa-solid fa-list-check mr-3 w-5"></i> Execution
             </a>
         </nav>
-        <div class="p-8 mt-auto">
-            <p class="text-sm font-bold text-textDark">Pratheeksha Prakash</p>
-            <p class="text-xs text-textMuted mt-1 leading-tight">Aspiring Product Manager to devise most eminent Product Manager.</p>
+        <div class="p-6 border-t-2 border-accentLight border-dashed bg-white m-4 rounded-2xl">
+            <p class="text-sm font-bold">Pratheeksha Prakash</p>
+            <p class="text-xs text-gray-500"> </p>
         </div>
     </aside>
 
-    <!-- Main Content Area -->
-    <main class="flex-1 h-full overflow-y-auto bg-bgLime p-6 md:p-10 scroll-smooth relative" id="main-content">
+    <main class="flex-1 h-full overflow-y-auto bg-bgWarm relative scroll-smooth" id="main-content">
         
-        <div class="max-w-6xl mx-auto space-y-6">
+        <section id="intro" class="min-h-screen flex items-center justify-center p-10 lg:p-20 relative">
+            <div class="absolute top-10 right-10 text-accentLight opacity-30 text-9xl transform rotate-12"><i class="fa-solid fa-paw"></i></div>
             
-            <!-- Introduction Section -->
-            <section id="intro" class="bento-card relative overflow-hidden">
-                <div class="inline-block bg-accentBlack text-white px-4 py-1.5 rounded-md font-heading font-bold text-xs tracking-widest mb-4">
+            <div class="max-w-4xl glass-card rounded-[40px] p-12 md:p-20 text-center relative z-10">
+                <div class="inline-block bg-accentBrown text-white px-6 py-2 rounded-full font-heading font-bold text-sm tracking-widest mb-8 shadow-md">
                     PRODUCT BREAKDOWN
                 </div>
-                <h1 class="text-5xl md:text-6xl font-heading font-extrabold text-textDark leading-tight mb-4 tracking-tight">
-                    Decoding <span class="text-bgLime">Supertails</span>
+                <h1 class="text-5xl md:text-7xl font-heading font-extrabold text-textDark leading-tight mb-6 tracking-tight">
+                    Decoding <span class="text-accentPop">Supertails</span>
                 </h1>
-                <p class="text-lg md:text-xl text-textMuted leading-relaxed font-body max-w-4xl">
-                    Supertails is a completed teardown exploring market wellness, aiming for a clean and structured experience. How India's full-stack pet care platform is winning — and where it needs to grow up.
+                <p class="text-xl md:text-3xl text-gray-700 mb-10 leading-relaxed font-body">
+                    How India's full-stack pet care platform is winning — and where it needs to grow up.
                 </p>
-            </section>
-
-            <!-- Market Context Section -->
-            <section id="context" class="bento-card">
-                <h2 class="text-3xl font-heading font-extrabold text-textDark mb-8">Market Context</h2>
                 
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
-                    <!-- Stats Blocks -->
-                    <div class="space-y-4">
-                        <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100 flex items-center gap-4">
-                            <div class="w-12 h-12 bg-bgLime rounded-full flex items-center justify-center text-textDark text-xl">
-                                <i class="fa-solid fa-indian-rupee-sign"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-2xl font-black text-textDark">8K Cr</h3>
-                                <p class="text-sm font-bold text-textMuted">Market Size</p>
-                            </div>
-                        </div>
-                        <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100 flex items-center gap-4">
-                            <div class="w-12 h-12 bg-bgLime rounded-full flex items-center justify-center text-textDark text-xl">
-                                <i class="fa-solid fa-house-chimney-window"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-2xl font-black text-textDark">600K</h3>
-                                <p class="text-sm font-bold text-textMuted">Yearly Adoptions</p>
-                            </div>
-                        </div>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-6 mt-12 border-t-2 border-dashed border-accentLight pt-8">
+                    <div class="w-16 h-16 rounded-full bg-accentPop text-white flex items-center justify-center text-2xl shadow-lg border-4 border-white">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="text-left">
+                        <p class="font-heading font-bold text-xl">Pratheeksha Prakash</p>
+                        <p class="text-accentBrown font-semibold">Product Manager</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="context" class="min-h-screen p-10 lg:p-20 border-t-4 border-white">
+            <div class="max-w-6xl mx-auto">
+                <div class="mb-12">
+                    <h2 class="text-4xl font-heading font-extrabold text-textDark inline-block border-b-4 border-accentPop pb-2 mb-4">The Market Opportunity</h2>
+                    <p class="text-lg text-gray-700 max-w-3xl">Understanding the landscape Supertails operates in. The pet care market in India is exploding, driven primarily by a massive influx of new, inexperienced pet parents who need guidance as much as they need products.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="glass-card rounded-3xl p-8 flex flex-col justify-center items-center text-center">
+                        <i class="fa-solid fa-indian-rupee-sign text-4xl text-accentBrown mb-4"></i>
+                        <h3 class="text-6xl font-heading font-black text-accentPop mb-2">8K<span class="text-3xl">Cr</span></h3>
+                        <p class="font-bold text-xl mb-2">Market Size</p>
+                        <p class="text-gray-600">Growing at a massive 20% CAGR annually.</p>
                     </div>
                     
-                    <!-- Chart -->
-                    <div class="flex flex-col justify-center items-center">
+                    <div class="glass-card rounded-3xl p-8 flex flex-col justify-center items-center">
+                        <p class="font-bold text-xl mb-4 text-center">First-Time Parents</p>
                         <div class="chart-container w-full">
                             <canvas id="marketChart"></canvas>
                         </div>
-                        <p class="text-textMuted font-bold mt-2 text-center text-sm">First-Time Parents Dominance</p>
+                        <p class="text-gray-600 text-center mt-4">Urban India is falling in love with pets.</p>
                     </div>
 
-                    <!-- Building Blocks -->
-                    <div class="space-y-4">
-                        <div class="bg-gray-50 p-5 rounded-2xl border border-gray-100">
-                            <h4 class="font-bold text-textDark"><i class="fa-solid fa-layer-group text-bgLime mr-2"></i> Full-Stack Ecosystem</h4>
-                            <p class="text-sm text-textMuted mt-1">E-commerce + online vet consults + clinics.</p>
-                        </div>
-                        <div class="bg-accentBlack text-white p-5 rounded-2xl">
-                            <h4 class="font-bold"><i class="fa-solid fa-heart text-bgLime mr-2"></i> The Real Bet</h4>
-                            <p class="text-sm text-gray-300 mt-1">Capturing LTV across a 12–15 year pet lifecycle.</p>
-                        </div>
+                    <div class="glass-card rounded-3xl p-8 flex flex-col justify-center items-center text-center">
+                        <i class="fa-solid fa-house-chimney-window text-4xl text-accentBrown mb-4"></i>
+                        <h3 class="text-6xl font-heading font-black text-accentPop mb-2">600K</h3>
+                        <p class="font-bold text-xl mb-2">Yearly Adoptions</p>
+                        <p class="text-gray-600">From college students to DINK couples.</p>
                     </div>
                 </div>
-            </section>
 
-            <!-- Personas Section -->
-            <section id="personas" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- Tabbed Persona Card -->
-                <div class="bento-card mb-0">
-                    <h2 class="text-3xl font-heading font-extrabold text-textDark mb-6">Persona</h2>
+                <div class="mt-16 glass-card rounded-3xl p-10">
+                    <h3 class="text-3xl font-heading font-bold text-accentBrown mb-8">What They Are Building</h3>
+                    <p class="text-xl font-bold mb-6 text-accentPop">It’s not just a pet store.</p>
                     
-                    <div class="flex space-x-2 mb-6 bg-gray-100 p-1.5 rounded-xl">
-                        <button onclick="switchPersona('aryan')" id="btn-aryan" class="flex-1 py-2 px-4 rounded-lg font-bold transition-all duration-300 bg-accentBlack text-white shadow-sm text-sm">
-                            Aryan
-                        </button>
-                        <button onclick="switchPersona('couple')" id="btn-couple" class="flex-1 py-2 px-4 rounded-lg font-bold text-textMuted hover:text-textDark transition-all duration-300 text-sm">
-                            Mridul & Vaishali
-                        </button>
-                    </div>
-
-                    <div id="content-aryan" class="persona-content block">
-                        <div class="flex gap-4 items-start">
-                            <img src="https://image.pollinations.ai/prompt/A%20handsome%2021%20year%20old%20Indian%20guy%20in%20a%20blue%20hoodie,%20square%20portrait,%20bright,%208k?width=200&height=200&nologo=true" alt="Aryan" class="w-24 h-24 object-cover object-center rounded-xl shadow-sm">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-4 items-start bg-white p-6 rounded-2xl border border-accentLight">
+                            <div class="bg-cardWarm p-3 rounded-lg text-accentPop"><i class="fa-solid fa-layer-group text-xl"></i></div>
                             <div>
-                                <h3 class="text-xl font-heading font-bold text-textDark mb-1">Aryan (21)</h3>
-                                <p class="font-bold text-textMuted uppercase tracking-wider text-xs mb-2">First-time parent, Gen-Z</p>
-                                <p class="text-sm text-textDark">Found a stray kitten. Has no experience and no trusted local vet. Uses Supertails for accessible clinics and basic knowledge.</p>
+                                <h4 class="font-bold text-lg">Full-Stack Ecosystem</h4>
+                                <p class="text-gray-600 mt-1">E-commerce + online vet consults + clinics.</p>
                             </div>
                         </div>
-                    </div>
-
-                    <div id="content-couple" class="persona-content hidden">
-                        <div class="flex gap-4 items-start">
-                            <img src="https://image.pollinations.ai/prompt/A%20smiling%20young%20Indian%20couple,%20square%20portrait,%20sunny,%20cinematic?width=200&height=200&nologo=true" alt="Mridul and Vaishali" class="w-24 h-24 object-cover object-center rounded-xl shadow-sm">
+                        <div class="flex gap-4 items-start bg-white p-6 rounded-2xl border border-accentLight">
+                            <div class="bg-cardWarm p-3 rounded-lg text-accentPop"><i class="fa-solid fa-stethoscope text-xl"></i></div>
                             <div>
-                                <h3 class="text-xl font-heading font-bold text-textDark mb-1">Mridul & Vaishali</h3>
-                                <p class="font-bold text-textMuted uppercase tracking-wider text-xs mb-2">DINK Couple, Millennials</p>
-                                <p class="text-sm text-textDark">Busy, research-oriented. Willing to spend on premium quality. Used online consults for a care plan before the puppy arrived.</p>
+                                <h4 class="font-bold text-lg">High-Margin Telehealth</h4>
+                                <p class="text-gray-600 mt-1">Vet consultations act as a crucial trust signal.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 items-start bg-white p-6 rounded-2xl border border-accentLight">
+                            <div class="bg-cardWarm p-3 rounded-lg text-accentPop"><i class="fa-solid fa-rotate-left text-xl"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg">Recurring Revenue</h4>
+                                <p class="text-gray-600 mt-1">Subscriptions for essentials like kibble and litter.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 items-start bg-accentBrown text-white p-6 rounded-2xl shadow-lg">
+                            <div class="bg-white/20 p-3 rounded-lg text-white"><i class="fa-solid fa-heart text-xl"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg">The Real Bet</h4>
+                                <p class="text-white/80 mt-1">Capturing LTV across a 12–15 year pet lifecycle.</p>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- Block Quote / Wins Card -->
-                <div class="bento-card mb-0 flex flex-col justify-center border-l-8 border-bgLime">
-                    <i class="fa-solid fa-quote-left text-4xl text-gray-200 mb-4"></i>
-                    <p class="text-xl font-body font-bold text-textDark leading-relaxed mb-6">
-                        "For Aryan, it isn’t a store — it’s his first call when something feels off. Guest-First Flow removes the anxiety of commitment."
-                    </p>
-                    <div class="flex items-center gap-3 text-sm font-bold text-textMuted">
-                        <i class="fa-solid fa-trophy text-bgLime"></i> What's Working Well
+        <section id="personas" class="min-h-screen p-10 lg:p-20 border-t-4 border-white bg-cardWarm">
+            <div class="max-w-6xl mx-auto">
+                <div class="mb-12">
+                    <h2 class="text-4xl font-heading font-extrabold text-textDark inline-block border-b-4 border-accentPop pb-2 mb-4">Who Uses Supertails?</h2>
+                    <p class="text-lg text-gray-700 max-w-3xl">To understand the product wins, we must look at who the product serves. Supertails caters heavily to the anxieties and needs of new pet parents.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                    
+                    <div class="bg-white rounded-[30px] p-8 shadow-lg border-2 border-accentLight">
+                        <div class="flex space-x-2 mb-8 bg-bgWarm p-2 rounded-xl">
+                            <button onclick="switchPersona('aryan')" id="btn-aryan" class="flex-1 py-3 px-4 rounded-lg font-bold transition-all duration-300 bg-accentBrown text-white shadow-md">
+                                <i class="fa-solid fa-cat mr-2"></i> Aryan
+                            </button>
+                            <button onclick="switchPersona('couple')" id="btn-couple" class="flex-1 py-3 px-4 rounded-lg font-bold text-gray-500 hover:bg-white transition-all duration-300">
+                                <i class="fa-solid fa-dog mr-2"></i> Mridul & Vaishali
+                            </button>
+                        </div>
+
+                        <div id="content-aryan" class="persona-content block">
+                            <img src="https://image.pollinations.ai/prompt/A%20handsome%2021%20year%20old%20Indian%20guy%20in%20a%20blue%20hoodie%20playing%20with%20a%20small%20orange%20kitten%20in%20a%20modern%20bedroom,%20bright,%208k%20resolution?width=800&height=400&nologo=true" alt="Aryan with his orange cat" class="w-full h-48 object-cover object-center rounded-2xl mb-6 shadow-sm border-2 border-accentLight">
+                            <h3 class="text-3xl font-heading font-bold text-accentPop mb-2">Aryan (21)</h3>
+                            <p class="font-bold text-gray-500 mb-6 uppercase tracking-wider text-sm">First-time parent, Gen-Z</p>
+                            <ul class="space-y-4 mb-8">
+                                <li class="flex items-start"><i class="fa-solid fa-check text-successGreen mt-1 mr-3"></i> <span>Found a stray kitten.</span></li>
+                                <li class="flex items-start"><i class="fa-solid fa-check text-successGreen mt-1 mr-3"></i> <span>Has no experience and no trusted local vet.</span></li>
+                                <li class="flex items-start"><i class="fa-solid fa-check text-successGreen mt-1 mr-3"></i> <span>Supertails provided him with accessible clinics and basic knowledge.</span></li>
+                            </ul>
+                            <div class="bg-bgWarm p-6 rounded-2xl border-l-4 border-accentBrown font-body italic text-lg text-gray-700">
+                                "For Aryan, it isn’t a store — it’s his first call when something feels off."
+                            </div>
+                        </div>
+
+                        <div id="content-couple" class="persona-content hidden">
+                            <img src="https://image.pollinations.ai/prompt/A%20smiling%20young%20Indian%20couple%20petting%20a%20golden%20retriever%20puppy%20in%20a%20park,%20sunny,%20cinematic,%20high%20quality?width=800&height=400&nologo=true" alt="Mridul and Vaishali with their golden retriever" class="w-full h-48 object-cover object-center rounded-2xl mb-6 shadow-sm border-2 border-accentLight">
+                            <h3 class="text-3xl font-heading font-bold text-accentPop mb-2">Mridul & Vaishali</h3>
+                            <p class="font-bold text-gray-500 mb-6 uppercase tracking-wider text-sm">DINK Couple, Millennials</p>
+                            <ul class="space-y-4 mb-8">
+                                <li class="flex items-start"><i class="fa-solid fa-check text-successGreen mt-1 mr-3"></i> <span>Busy, research-oriented.</span></li>
+                                <li class="flex items-start"><i class="fa-solid fa-check text-successGreen mt-1 mr-3"></i> <span>Willing to spend on premium quality.</span></li>
+                                <li class="flex items-start"><i class="fa-solid fa-check text-successGreen mt-1 mr-3"></i> <span>Used online consults for a care plan before the puppy even arrived.</span></li>
+                            </ul>
+                            <div class="bg-bgWarm p-6 rounded-2xl border-l-4 border-accentBrown font-body italic text-lg text-gray-700">
+                                "They share deep emotional investment combined with genuine uncertainty."
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col justify-center">
+                        <h3 class="text-3xl font-heading font-extrabold text-textDark mb-6">What's Working Well <i class="fa-solid fa-trophy text-accentLight ml-2"></i></h3>
+                        <div class="space-y-6">
+                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-accentLight hover:border-accentPop transition-colors duration-300">
+                                <h4 class="font-bold text-xl mb-2 flex items-center"><i class="fa-solid fa-door-open w-8 text-accentPop"></i> Guest-First Flow</h4>
+                                <p class="text-gray-600 pl-8">Allows browsing and cart additions without a login wall. Removes the anxiety of commitment.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-accentLight hover:border-accentPop transition-colors duration-300">
+                                <h4 class="font-bold text-xl mb-2 flex items-center"><i class="fa-solid fa-filter w-8 text-accentPop"></i> Smart Filtering</h4>
+                                <p class="text-gray-600 pl-8">Filters by breed, age, and weight. A Labrador puppy and a Persian cat don't eat the same thing.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-accentLight hover:border-accentPop transition-colors duration-300">
+                                <h4 class="font-bold text-xl mb-2 flex items-center"><i class="fa-solid fa-box-open w-8 text-accentPop"></i> Henlo (In-House Brand)</h4>
+                                <p class="text-gray-600 pl-8">Private label formulated for Indian street breeds and specific digestive needs. High margin.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Friction Section -->
-            <section id="friction" class="bento-card bg-white">
-                <h2 class="text-3xl font-heading font-extrabold text-textDark mb-6">Friction</h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="bg-accentBlack text-white rounded-[32px] p-5 flex items-center gap-4 shadow-lg">
-                        <div class="bg-white/10 w-10 h-10 rounded-full flex items-center justify-center shrink-0">
-                            <i class="fa-solid fa-triangle-exclamation text-xl"></i>
-                        </div>
-                        <p class="text-sm font-bold leading-tight">Delivery Anxiety: Promised 60 mins, Actual days later.</p>
+        <section id="friction" class="min-h-screen p-10 lg:p-20 border-t-4 border-white">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-16">
+                    <div class="inline-flex items-center justify-center w-20 h-20 bg-alertRed/10 rounded-full mb-6">
+                        <i class="fa-solid fa-triangle-exclamation text-4xl text-alertRed"></i>
                     </div>
+                    <h2 class="text-5xl font-heading font-extrabold text-textDark mb-4">The Core Problem: Trust</h2>
+                    <p class="text-2xl font-bold text-alertRed">Delivery Anxiety</p>
+                </div>
 
-                    <div class="bg-accentBlack text-white rounded-[32px] p-5 flex items-center gap-4 shadow-lg">
-                        <div class="bg-white/10 w-10 h-10 rounded-full flex items-center justify-center shrink-0">
-                            <i class="fa-solid fa-headset text-xl"></i>
+                <div class="glass-card rounded-[40px] p-10 md:p-16 border-alertRed/30 overflow-hidden relative">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-alertRed/5 rounded-full transform translate-x-1/2 -translate-y-1/2"></div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 relative z-10 items-center">
+                        <div>
+                            <div class="bg-white p-6 rounded-2xl border border-gray-200 mb-6 shadow-sm">
+                                <p class="text-gray-500 uppercase text-xs font-bold mb-1">Promised</p>
+                                <p class="text-3xl font-heading font-bold text-successGreen">60 minutes.</p>
+                            </div>
+                            <div class="bg-alertRed text-white p-6 rounded-2xl shadow-lg mb-8">
+                                <p class="text-white/70 uppercase text-xs font-bold mb-1">Actual</p>
+                                <p class="text-3xl font-heading font-bold">Days later. No updates.</p>
+                            </div>
+                            <p class="text-xl text-gray-700 leading-relaxed">
+                                This isn't just a bad experience — it's the <strong>ultimate trust killer</strong> for pet parents who run out of food.
+                            </p>
                         </div>
-                        <p class="text-sm font-bold leading-tight">Unresolved Support: Poor customer service resolution.</p>
-                    </div>
-
-                    <div class="bg-accentBlack text-white rounded-[32px] p-5 flex items-center gap-4 shadow-lg">
-                        <div class="bg-white/10 w-10 h-10 rounded-full flex items-center justify-center shrink-0">
-                            <i class="fa-solid fa-heart-crack text-xl text-bgLime"></i>
+                        <div class="bg-bgWarm p-8 rounded-3xl border-2 border-dashed border-alertRed/50">
+                            <h3 class="text-2xl font-bold mb-4 flex items-center gap-3"><i class="fa-solid fa-arrow-right-from-bracket text-alertRed"></i> The Result</h3>
+                            <p class="text-lg text-gray-700 mb-6">Users open Blinkit or Zepto instead.</p>
+                            <div class="bg-white p-4 rounded-xl text-center shadow-inner font-bold text-textDark">
+                                <i class="fa-solid fa-clock-rotate-left mr-2"></i> Delivery failure resets the loyalty clock.
+                            </div>
                         </div>
-                        <p class="text-sm font-bold leading-tight">Vet Trust Deficit: Inconsistent medical advice quality.</p>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- Solution & Execution Section -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                
-                <!-- Solution Card (Dark Green) -->
-                <section id="solution" class="bento-card mb-0 lg:col-span-2 bg-accentDarkGreen text-white shadow-xl relative overflow-hidden">
-                    <div class="relative z-10">
-                        <h2 class="text-3xl font-heading font-extrabold text-white mb-8">Proposed Fixes</h2>
-                        
-                        <div class="flex flex-wrap gap-3 mb-8">
-                            <span class="bg-white text-textDark px-3 py-1 rounded-full text-xs font-bold"><i class="fa-solid fa-robot mr-1"></i> AI Chatbot</span>
-                            <span class="bg-bgLime text-accentDarkGreen px-3 py-1 rounded-full text-xs font-bold"><i class="fa-solid fa-user-check mr-1"></i> Vet Credentials</span>
-                            <span class="bg-accentBlack text-white px-3 py-1 rounded-full text-xs font-bold"><i class="fa-solid fa-calculator mr-1"></i> Promise Score</span>
-                        </div>
+        <section id="solution" class="min-h-screen p-10 lg:p-20 border-t-4 border-white bg-textDark text-white relative">
+            <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(#FFFDF9 2px, transparent 2px); background-size: 30px 30px;"></div>
+            
+            <div class="max-w-6xl mx-auto relative z-10">
+                <div class="mb-16 text-center">
+                    <h2 class="text-4xl md:text-5xl font-heading font-extrabold text-white inline-block border-b-4 border-accentPop pb-2 mb-4">My Proposed Solution</h2>
+                    <p class="text-xl text-accentLight mt-4 max-w-2xl mx-auto">Feature: Delivery Promise Score</p>
+                    <p class="text-gray-300 mt-2">Show a real-time reliability signal at checkout based on stock and courier SLA data.</p>
+                </div>
 
-                        <!-- Interactive Mockup -->
-                        <div class="bg-[#163618] rounded-2xl p-6 border border-white/10">
-                            <div class="flex justify-between items-center mb-4">
-                                <span class="font-bold text-gray-300">Delivery Reliability Score</span>
-                                <span id="score-display" class="font-bold text-bgLime text-xl">88%</span>
-                            </div>
-                            
-                            <input type="range" id="score-slider" min="50" max="100" value="88" class="interactive-range mb-4">
-                            
-                            <div id="protection-alert" class="bg-accentBlack border border-white/10 p-4 rounded-xl flex items-center gap-4 transition-all duration-300">
-                                <div class="bg-white/10 w-8 h-8 rounded-full flex items-center justify-center shrink-0">
-                                    <i class="fa-solid fa-bolt text-bgLime text-sm"></i>
-                                </div>
-                                <p class="text-sm text-gray-300 font-bold leading-tight">AI Delay Protection Active: 5% Supercash auto-credit if delayed.</p>
-                            </div>
-                            
-                            <div id="standard-alert" class="bg-bgLime/20 border border-bgLime/30 p-4 rounded-xl flex items-center gap-4 hidden transition-all duration-300">
-                                <div class="bg-bgLime w-8 h-8 rounded-full flex items-center justify-center shrink-0">
-                                    <i class="fa-solid fa-check text-accentDarkGreen text-sm"></i>
-                                </div>
-                                <p class="text-sm text-bgLime font-bold leading-tight">High Reliability Area: Expected precisely within 60 mins.</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Execution Card -->
-                <section id="execution" class="bento-card mb-0 flex flex-col justify-between border-2 border-textDark shadow-[8px_8px_0_#1A1A1A]">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    
                     <div>
-                        <h2 class="text-3xl font-heading font-extrabold text-textDark mb-6">Execution</h2>
-                        <ul class="space-y-4">
-                            <li class="flex gap-3 items-start border-b border-gray-100 pb-3">
-                                <i class="fa-solid fa-check-square text-bgLime text-xl mt-1"></i>
+                        <ul class="space-y-8 mb-10">
+                            <li class="flex gap-6">
+                                <div class="w-14 h-14 shrink-0 bg-accentBrown rounded-2xl flex items-center justify-center text-2xl shadow-lg">
+                                    <i class="fa-solid fa-calculator"></i>
+                                </div>
                                 <div>
-                                    <h4 class="font-bold text-sm text-textDark">AI Resolution Rate</h4>
-                                    <p class="text-xs text-textMuted mt-1">Track tickets closed autonomously.</p>
+                                    <h4 class="text-xl font-bold mb-2">Real-Time Calculation</h4>
+                                    <p class="text-gray-400">Dynamic calculation based on user pin code, local warehouse stock, and courier metrics.</p>
                                 </div>
                             </li>
-                            <li class="flex gap-3 items-start border-b border-gray-100 pb-3">
-                                <i class="fa-solid fa-user-doctor text-bgLime text-xl mt-1"></i>
-                                <div>
-                                    <h4 class="font-bold text-sm text-textDark">Vet Credibility Audit</h4>
-                                    <p class="text-xs text-textMuted mt-1">Display degrees to boost conversion.</p>
+                            <li class="flex gap-6">
+                                <div class="w-14 h-14 shrink-0 bg-accentBrown rounded-2xl flex items-center justify-center text-2xl shadow-lg">
+                                    <i class="fa-solid fa-shield-halved"></i>
                                 </div>
-                            </li>
-                            <li class="flex gap-3 items-start">
-                                <i class="fa-solid fa-chart-line text-bgLime text-xl mt-1"></i>
                                 <div>
-                                    <h4 class="font-bold text-sm text-textDark">WISMO Volume</h4>
-                                    <p class="text-xs text-textMuted mt-1">Monitor drop in order queries.</p>
+                                    <h4 class="text-xl font-bold mb-2">Auto-Protection Protocol</h4>
+                                    <p class="text-gray-400">If score < 90%, auto-apply a 5% wallet credit explicitly communicating potential delays.</p>
                                 </div>
                             </li>
                         </ul>
+                        <div class="bg-accentPop/20 border-l-4 border-accentPop p-6 rounded-r-2xl">
+                            <p class="text-xl font-bold text-accentLight">Goal:</p>
+                            <p class="text-lg">Shift narrative from "They failed" to <span class="text-white font-black bg-accentPop px-2 py-1 rounded">"They compensated me."</span></p>
+                        </div>
                     </div>
-                    <div class="flex gap-2 mt-6">
-                        <a href="#" class="flex-1 bg-accentBlack text-white text-center py-2.5 rounded-lg text-sm font-bold hover:bg-gray-800 transition-colors">Action</a>
-                        <a href="https://www.linkedin.com/in/pratheeksha-prakash/" class="flex-1 bg-blue-600 text-white text-center py-2.5 rounded-lg text-sm font-bold hover:bg-blue-700 transition-colors">LinkedIn</a>
+
+                    <div class="bg-white text-textDark p-8 rounded-[30px] shadow-2xl relative transform lg:rotate-2 hover:rotate-0 transition-transform duration-500">
+                        <div class="absolute -top-4 -right-4 bg-accentPop text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">Interactive UI Mockup</div>
+                        
+                        <h4 class="font-heading font-bold text-2xl border-b border-gray-200 pb-4 mb-6">Checkout Summary</h4>
+                        
+                        <div class="mb-8">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-bold text-gray-700">Delivery Reliability Score</span>
+                                <span id="score-display" class="font-bold text-accentPop">88%</span>
+                            </div>
+                            
+                            <input type="range" id="score-slider" min="50" max="100" value="88" class="interactive-range mb-2">
+                            <p class="text-xs text-gray-500 text-center"><i class="fa-solid fa-arrows-left-right"></i> Drag slider to simulate SLA conditions</p>
+                        </div>
+
+                        <div id="protection-alert" class="bg-[#FFF3F0] border-l-4 border-accentPop p-4 rounded-r-xl mb-6 transition-all duration-300">
+                            <div class="flex items-center gap-2 mb-1">
+                                <i class="fa-solid fa-bolt text-accentPop"></i>
+                                <span class="font-bold text-accentPop">Delay Protection Active</span>
+                            </div>
+                            <p class="text-sm text-gray-600">Get 5% Supercash if order is delayed beyond 60 mins.</p>
+                        </div>
+                        
+                        <div id="standard-alert" class="bg-green-50 border-l-4 border-successGreen p-4 rounded-r-xl mb-6 hidden transition-all duration-300">
+                            <div class="flex items-center gap-2 mb-1">
+                                <i class="fa-solid fa-check-circle text-successGreen"></i>
+                                <span class="font-bold text-successGreen">High Reliability Area</span>
+                            </div>
+                            <p class="text-sm text-gray-600">Delivery expected precisely within 60 minutes.</p>
+                        </div>
+
+                        <button class="w-full bg-textDark text-white py-4 rounded-xl font-bold hover:bg-accentBrown transition-colors">
+                            Pay ₹1,499
+                        </button>
                     </div>
-                </section>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="execution" class="min-h-screen p-10 lg:p-20 border-t-4 border-white bg-bgWarm">
+            <div class="max-w-5xl mx-auto">
+                <div class="mb-16">
+                    <h2 class="text-4xl font-heading font-extrabold text-textDark inline-block border-b-4 border-accentPop pb-2 mb-4">Execution & Measurement</h2>
+                    <p class="text-lg text-gray-700 max-w-3xl">How to track the success of the new feature and the immediate next steps if I joined tomorrow.</p>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-8 flex items-center"><i class="fa-solid fa-chart-line text-accentPop mr-3"></i> How I'd Measure Success</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+                    <div class="glass-card p-6 rounded-2xl flex items-start gap-4">
+                        <div class="bg-white p-3 rounded-xl shadow-sm text-accentBrown"><i class="fa-solid fa-rotate text-xl"></i></div>
+                        <div>
+                            <h4 class="font-bold text-lg">30-Day Repeat Rate</h4>
+                            <p class="text-sm text-gray-600 mt-1">Did a first-time buyer return? The ultimate subscription signal.</p>
+                        </div>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl flex items-start gap-4">
+                        <div class="bg-white p-3 rounded-xl shadow-sm text-accentBrown"><i class="fa-solid fa-truck-fast text-xl"></i></div>
+                        <div>
+                            <h4 class="font-bold text-lg">Delivery Success SLA</h4>
+                            <p class="text-sm text-gray-600 mt-1">Percentage of orders delivered precisely within the promised window.</p>
+                        </div>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl flex items-start gap-4">
+                        <div class="bg-white p-3 rounded-xl shadow-sm text-accentBrown"><i class="fa-solid fa-headset text-xl"></i></div>
+                        <div>
+                            <h4 class="font-bold text-lg">WISMO Ticket Volume</h4>
+                            <p class="text-sm text-gray-600 mt-1">Tracking drop in "Where is my order?" support queries.</p>
+                        </div>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl flex items-start gap-4">
+                        <div class="bg-white p-3 rounded-xl shadow-sm text-accentBrown"><i class="fa-solid fa-face-smile text-xl"></i></div>
+                        <div>
+                            <h4 class="font-bold text-lg">NPS Trend</h4>
+                            <p class="text-sm text-gray-600 mt-1">Are we actively rebuilding trust among the core user base?</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-[30px] p-10 border-2 border-accentBrown shadow-lg relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-accentLight/30 rounded-bl-full"></div>
+                    <h3 class="text-2xl font-bold mb-8 relative z-10"><i class="fa-regular fa-calendar-days text-accentBrown mr-3"></i> Next Steps: Day 1 to 30</h3>
+                    
+                    <ul class="space-y-6 relative z-10">
+                        <li class="flex items-start gap-4">
+                            <span class="flex-shrink-0 w-8 h-8 rounded-full bg-accentPop text-white flex items-center justify-center font-bold">1</span>
+                            <div>
+                                <h4 class="font-bold text-xl text-textDark">Map Churn Against Order History</h4>
+                                <p class="text-gray-600 mt-1">Isolate which delivery delay threshold causes a user to go permanently inactive. Is it one late order? Two? Does it depend on regular food vs. prescriptions?</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <span class="flex-shrink-0 w-8 h-8 rounded-full bg-accentPop text-white flex items-center justify-center font-bold">2</span>
+                            <div>
+                                <h4 class="font-bold text-xl text-textDark">Sharpen the DPS Trigger</h4>
+                                <p class="text-gray-600 mt-1">Use the threshold data to define exactly when the 90% Delay Protection Offer should trigger, making it a data-backed decision rather than a gut feeling.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="mt-20 text-center pb-20">
+                    <h2 class="text-5xl font-heading font-extrabold text-accentBrown mb-4">Thank You!</h2>
+                    <p class="text-2xl font-bold text-textDark mb-6">I'm Pratheeksha Prakash</p>
+                    <p class="text-gray-600 max-w-2xl mx-auto mb-8">An aspiring Product Manager with 3 years at IBM, passionate about building user-centric, high-growth products. Have you faced delivery issues as a pet parent? Let's discuss!</p>
+                    
+                    <div class="flex justify-center gap-4">
+                        <a href="mailto:pratheekshaprakash0108@gmail.com" class="bg-white text-textDark border-2 border-accentBrown px-6 py-3 rounded-full font-bold hover:bg-accentBrown hover:text-white transition-colors">
+                            <i class="fa-solid fa-envelope mr-2"></i> Email Me
+                        </a>
+                        <a href="https://www.linkedin.com/in/pratheeksha-prakash/" target="_blank" rel="noopener noreferrer" class="bg-[#0A66C2] text-white px-6 py-3 rounded-full font-bold hover:bg-blue-800 transition-colors">
+                            <i class="fa-brands fa-linkedin mr-2"></i> LinkedIn
+                        </a>
+                    </div>
+                    <p class="font-heading text-accentPop font-bold text-xl mt-8 transform -rotate-2">Let's build together! 🚀</p>
+                </div>
 
             </div>
+        </section>
 
-        </div>
     </main>
 
     <script>
@@ -371,8 +505,12 @@
 
             navLinks.forEach(link => {
                 link.classList.remove('active');
+                link.classList.add('text-textDark');
+                link.classList.remove('text-white');
                 if (link.getAttribute('href').includes(current)) {
                     link.classList.add('active');
+                    link.classList.remove('text-textDark');
+                    link.classList.add('text-white');
                 }
             });
         });
@@ -385,21 +523,23 @@
             const contentCouple = document.getElementById('content-couple');
 
             if (persona === 'aryan') {
-                btnAryan.className = 'flex-1 py-2 px-4 rounded-lg font-bold transition-all duration-300 bg-accentBlack text-white shadow-sm text-sm';
-                btnCouple.className = 'flex-1 py-2 px-4 rounded-lg font-bold text-textMuted hover:text-textDark transition-all duration-300 text-sm';
+                btnAryan.classList.add('bg-accentBrown', 'text-white', 'shadow-md');
+                btnAryan.classList.remove('text-gray-500', 'hover:bg-white');
+                
+                btnCouple.classList.remove('bg-accentBrown', 'text-white', 'shadow-md');
+                btnCouple.classList.add('text-gray-500', 'hover:bg-white');
 
                 contentAryan.classList.remove('hidden');
-                contentAryan.classList.add('block');
                 contentCouple.classList.add('hidden');
-                contentCouple.classList.remove('block');
             } else {
-                btnCouple.className = 'flex-1 py-2 px-4 rounded-lg font-bold transition-all duration-300 bg-accentBlack text-white shadow-sm text-sm';
-                btnAryan.className = 'flex-1 py-2 px-4 rounded-lg font-bold text-textMuted hover:text-textDark transition-all duration-300 text-sm';
+                btnCouple.classList.add('bg-accentBrown', 'text-white', 'shadow-md');
+                btnCouple.classList.remove('text-gray-500', 'hover:bg-white');
+                
+                btnAryan.classList.remove('bg-accentBrown', 'text-white', 'shadow-md');
+                btnAryan.classList.add('text-gray-500', 'hover:bg-white');
 
                 contentCouple.classList.remove('hidden');
-                contentCouple.classList.add('block');
                 contentAryan.classList.add('hidden');
-                contentAryan.classList.remove('block');
             }
         }
 
@@ -415,23 +555,23 @@
             
             // Adjust slider background fill dynamically
             const percentage = ((val - slider.min) / (slider.max - slider.min)) * 100;
-            slider.style.background = `linear-gradient(to right, #BCE252 0%, #BCE252 ${percentage}%, #4A7850 ${percentage}%, #4A7850 100%)`;
+            slider.style.background = `linear-gradient(to right, #E26D5C 0%, #E26D5C ${percentage}%, #E6D0B3 ${percentage}%, #E6D0B3 100%)`;
 
             if (val < 90) {
                 protectionAlert.classList.remove('hidden');
                 standardAlert.classList.add('hidden');
-                scoreDisplay.style.color = '#BCE252';
+                scoreDisplay.className = 'font-bold text-accentPop';
             } else {
                 protectionAlert.classList.add('hidden');
                 standardAlert.classList.remove('hidden');
-                scoreDisplay.style.color = '#FFFFFF';
+                scoreDisplay.className = 'font-bold text-successGreen';
             }
         });
 
         // Initialize slider background
         const initialVal = slider.value;
         const initialPercentage = ((initialVal - slider.min) / (slider.max - slider.min)) * 100;
-        slider.style.background = `linear-gradient(to right, #BCE252 0%, #BCE252 ${initialPercentage}%, #4A7850 ${initialPercentage}%, #4A7850 100%)`;
+        slider.style.background = `linear-gradient(to right, #E26D5C 0%, #E26D5C ${initialPercentage}%, #E6D0B3 ${initialPercentage}%, #E6D0B3 100%)`;
 
         // --- Chart.js Initialization ---
         document.addEventListener('DOMContentLoaded', function() {
@@ -442,10 +582,10 @@
                 data: {
                     labels: ['First-Time Parents', 'Experienced Parents'],
                     datasets: [{
-                        data: [60, 40],
+                        data: [70, 30],
                         backgroundColor: [
-                            '#BCE252', // bgLime
-                            '#F3F4F6'  // light gray
+                            '#8C6239', // accentBrown
+                            '#E6D0B3'  // accentLight
                         ],
                         borderWidth: 0,
                         hoverOffset: 4
@@ -454,7 +594,7 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    cutout: '70%',
+                    cutout: '75%',
                     plugins: {
                         legend: {
                             display: false
@@ -465,11 +605,11 @@
                                     return ' ' + context.label + ': ' + context.raw + '%';
                                 }
                             },
-                            backgroundColor: '#111111',
+                            backgroundColor: '#4A3B32',
                             padding: 10,
                             cornerRadius: 8,
-                            titleFont: { family: 'Lato', size: 12 },
-                            bodyFont: { family: 'Lato', size: 12 }
+                            titleFont: { family: 'Lato', size: 14 },
+                            bodyFont: { family: 'Lato', size: 14 }
                         }
                     }
                 },
@@ -484,9 +624,9 @@
                         var fontSize = (height / 114).toFixed(2);
                         ctx.font = "bold " + fontSize + "em Poppins";
                         ctx.textBaseline = "middle";
-                        ctx.fillStyle = "#1A1A1A";
+                        ctx.fillStyle = "#E26D5C";
 
-                        var text = "60%",
+                        var text = "70%",
                             textX = Math.round((width - ctx.measureText(text).width) / 2),
                             textY = height / 2;
 
