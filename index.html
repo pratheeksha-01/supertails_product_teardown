@@ -14,14 +14,14 @@
             theme: {
                 extend: {
                     colors: {
-                        bgWarm: '#FAF5F0',
-                        cardWarm: '#F8EBE1',
-                        textDark: '#4A3B32',
-                        accentBrown: '#8C6239',
-                        accentLight: '#E6D0B3',
-                        accentPop: '#E26D5C',
-                        alertRed: '#D90429',
-                        successGreen: '#2A9D8F'
+                        bgWarm: '#F7FBEF',
+                        cardWarm: '#EEF6D8',
+                        textDark: '#2F3A1F',
+                        accentBrown: '#A8CF45',
+                        accentLight: '#DCECB2',
+                        accentPop: '#B7D957',
+                        alertRed: '#D96C6C',
+                        successGreen: '#6E9F2E'
                     },
                     fontFamily: {
                         heading: ['Poppins', 'sans-serif'],
@@ -32,7 +32,7 @@
         }
     </script>
     <style>
-        body { font-family: 'Lato', sans-serif; color: #4A3B32; background-color: #FAF5F0; }
+        body { font-family: 'Lato', sans-serif; color: #2F3A1F; background-color: #F7FBEF; }
         h1, h2, h3, h4, .font-heading { font-family: 'Poppins', sans-serif; }
         
         .chart-container {
@@ -46,17 +46,17 @@
         }
 
         .nav-link.active {
-            background-color: #8C6239;
-            color: #FFFDF9;
+            background-color: #A8CF45;
+            color: #FFFFFF;
             font-weight: 600;
             transform: translateX(10px);
         }
 
         .glass-card {
-            background: rgba(255, 253, 249, 0.9);
+            background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(10px);
-            border: 2px solid #E6D0B3;
-            box-shadow: 8px 8px 0px #E6D0B3;
+            border: 2px solid #DCECB2;
+            box-shadow: 8px 8px 0px #DCECB2;
         }
 
         .interactive-range {
@@ -64,7 +64,7 @@
             width: 100%;
             height: 12px;
             border-radius: 10px;
-            background: #E6D0B3;
+            background: #DCECB2;
             outline: none;
         }
 
@@ -74,9 +74,9 @@
             width: 25px;
             height: 25px;
             border-radius: 50%;
-            background: #E26D5C;
+            background: #A8CF45;
             cursor: pointer;
-            border: 3px solid #FFFDF9;
+            border: 3px solid #FFFFFF;
             box-shadow: 0 0 10px rgba(0,0,0,0.2);
         }
     </style>
@@ -85,8 +85,16 @@
 
     <aside class="w-72 bg-cardWarm border-r-4 border-accentLight flex flex-col h-full z-20 hidden md:flex shrink-0 shadow-xl relative">
         <div class="p-8 border-b-2 border-accentLight border-dashed">
-            <h1 class="text-2xl font-heading font-extrabold text-accentPop flex items-center gap-2 tracking-tight">
-                <i class="fa-solid fa-paw text-accentBrown"></i> Supertails
+            <h1 class="text-2xl font-heading font-extrabold text-accentPop flex items-center gap-3 tracking-tight">
+                <span class="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-accentBrown shadow-md overflow-hidden">
+                    <svg viewBox="0 0 120 120" class="w-9 h-9" aria-label="Supertails logo" role="img">
+                        <rect width="120" height="120" fill="#A8CF45"></rect>
+                        <path d="M18 72 C22 48, 42 42, 58 50 C70 56, 84 56, 98 44 L104 48 L92 58 L88 96 L72 96 L74 82 L34 82 L36 96 L20 96 Z" fill="#FFFFFF"></path>
+                        <path d="M18 70 L8 48 L14 44 L24 66 Z" fill="#111111"></path>
+                        <path d="M82 42 L92 28 L104 34 L94 42 Z" fill="#FFFFFF"></path>
+                    </svg>
+                </span>
+                <span>Supertails</span>
             </h1>
         </div>
         <nav class="flex-1 p-6 space-y-4 overflow-y-auto" id="sidebar-nav">
@@ -136,7 +144,7 @@
                     </div>
                     <div class="text-left">
                         <p class="font-heading font-bold text-xl">Pratheeksha Prakash</p>
-                        <p class="text-accentBrown font-semibold">Product Manager</p>
+                        <p class="text-accentBrown font-semibold"> Aspiring Product Manager</p>
                     </div>
                 </div>
             </div>
@@ -327,7 +335,7 @@
         </section>
 
         <section id="solution" class="min-h-screen p-10 lg:p-20 border-t-4 border-white bg-textDark text-white relative">
-            <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(#FFFDF9 2px, transparent 2px); background-size: 30px 30px;"></div>
+            <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(#FFFFFF 2px, transparent 2px); background-size: 30px 30px;"></div>
             
             <div class="max-w-6xl mx-auto relative z-10">
                 <div class="mb-16 text-center">
@@ -388,7 +396,7 @@
                             <p class="text-xs text-gray-500 text-center"><i class="fa-solid fa-arrows-left-right"></i> Drag slider to simulate SLA conditions</p>
                         </div>
 
-                        <div id="protection-alert" class="bg-[#FFF3F0] border-l-4 border-accentPop p-4 rounded-r-xl mb-6 transition-all duration-300">
+                        <div id="protection-alert" class="bg-[#F6FBE8] border-l-4 border-accentPop p-4 rounded-r-xl mb-6 transition-all duration-300">
                             <div class="flex items-center gap-2 mb-1">
                                 <i class="fa-solid fa-robot text-accentPop"></i>
                                 <span class="font-bold text-accentPop">AI Delay Protection Active</span>
@@ -477,7 +485,7 @@
                 <div class="mt-20 text-center pb-20">
                     <h2 class="text-5xl font-heading font-extrabold text-accentBrown mb-4">Thank You!</h2>
                     <p class="text-2xl font-bold text-textDark mb-6">I'm Pratheeksha Prakash</p>
-                    <p class="text-gray-600 max-w-2xl mx-auto mb-8">An aspiring Product Manager with 3 years at IBM, passionate about building user-centric, high-growth products. Have you faced delivery issues as a pet parent? Let's discuss!</p>
+                    <p class="text-gray-600 max-w-2xl mx-auto mb-8">An Aspiring Product Manager with 4 years at IBM, passionate about building user-centric, high-growth products. Have you faced delivery issues as a pet parent? Let's discuss!</p>
                     
                     <div class="flex justify-center gap-4">
                         <a href="mailto:pratheekshaprakash0108@gmail.com" class="bg-white text-textDark border-2 border-accentBrown px-6 py-3 rounded-full font-bold hover:bg-accentBrown hover:text-white transition-colors">
@@ -563,7 +571,7 @@
             
             // Adjust slider background fill dynamically
             const percentage = ((val - slider.min) / (slider.max - slider.min)) * 100;
-            slider.style.background = `linear-gradient(to right, #E26D5C 0%, #E26D5C ${percentage}%, #E6D0B3 ${percentage}%, #E6D0B3 100%)`;
+            slider.style.background = `linear-gradient(to right, #A8CF45 0%, #A8CF45 ${percentage}%, #DCECB2 ${percentage}%, #DCECB2 100%)`;
 
             if (val < 90) {
                 protectionAlert.classList.remove('hidden');
@@ -579,7 +587,7 @@
         // Initialize slider background
         const initialVal = slider.value;
         const initialPercentage = ((initialVal - slider.min) / (slider.max - slider.min)) * 100;
-        slider.style.background = `linear-gradient(to right, #E26D5C 0%, #E26D5C ${initialPercentage}%, #E6D0B3 ${initialPercentage}%, #E6D0B3 100%)`;
+        slider.style.background = `linear-gradient(to right, #A8CF45 0%, #A8CF45 ${initialPercentage}%, #DCECB2 ${initialPercentage}%, #DCECB2 100%)`;
 
         // --- Chart.js Initialization ---
         document.addEventListener('DOMContentLoaded', function() {
@@ -592,8 +600,8 @@
                     datasets: [{
                         data: [70, 30],
                         backgroundColor: [
-                            '#8C6239', // accentBrown
-                            '#E6D0B3'  // accentLight
+                            '#A8CF45', // accentBrown
+                            '#DCECB2'  // accentLight
                         ],
                         borderWidth: 0,
                         hoverOffset: 4
@@ -613,7 +621,7 @@
                                     return ' ' + context.label + ': ' + context.raw + '%';
                                 }
                             },
-                            backgroundColor: '#4A3B32',
+                            backgroundColor: '#2F3A1F',
                             padding: 10,
                             cornerRadius: 8,
                             titleFont: { family: 'Lato', size: 14 },
@@ -632,7 +640,7 @@
                         var fontSize = (height / 114).toFixed(2);
                         ctx.font = "bold " + fontSize + "em Poppins";
                         ctx.textBaseline = "middle";
-                        ctx.fillStyle = "#E26D5C";
+                        ctx.fillStyle = "#A8CF45";
 
                         var text = "70%",
                             textX = Math.round((width - ctx.measureText(text).width) / 2),
