@@ -9,11 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- Chosen Palette: Warm Pet Wellness (Neutrals, Browns, Terracotta) -->
-    <!-- Application Structure Plan: The SPA is structured as a scroll-spy dashboard with a fixed sidebar navigation. This allows users to jump instantly between logical phases of the teardown (Context, Problem, Solution, Execution) rather than clicking through linear slides. Interactive elements like tabs for personas and a live slider for the proposed feature simulate a dynamic product review experience. -->
-    <!-- Visualization & Content Choices: 1. Market Data -> Doughnut Chart (Chart.js) -> Hover interaction -> Shows market dominance visually. 2. Personas -> Tabbed Interface (HTML/JS) -> Click -> Compares user types compactly. 3. Proposed Solution -> Interactive Range Slider UI (HTML/JS) -> Drag -> Demonstrates the dynamic logic of the "Delivery Promise Score" feature in real-time. NO SVG/Mermaid. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-
     <script>
         tailwind.config = {
             theme: {
@@ -93,7 +88,6 @@
             <h1 class="text-2xl font-heading font-extrabold text-accentPop flex items-center gap-2 tracking-tight">
                 <i class="fa-solid fa-paw text-accentBrown"></i> supertails
             </h1>
-            <p class="text-sm font-bold text-accentBrown mt-2 uppercase tracking-widest"> </p>
         </div>
         <nav class="flex-1 p-6 space-y-4 overflow-y-auto" id="sidebar-nav">
             <a href="#intro" class="nav-link block px-4 py-3 rounded-xl text-textDark hover:bg-white hover:text-accentBrown transition-all duration-300 active">
@@ -109,7 +103,7 @@
                 <i class="fa-solid fa-triangle-exclamation mr-3 w-5"></i> The Friction
             </a>
             <a href="#solution" class="nav-link block px-4 py-3 rounded-xl text-textDark hover:bg-white hover:text-accentBrown transition-all duration-300">
-                <i class="fa-solid fa-lightbulb mr-3 w-5"></i> Proposed Fix
+                <i class="fa-solid fa-lightbulb mr-3 w-5"></i> Proposed Fixes
             </a>
             <a href="#execution" class="nav-link block px-4 py-3 rounded-xl text-textDark hover:bg-white hover:text-accentBrown transition-all duration-300">
                 <i class="fa-solid fa-list-check mr-3 w-5"></i> Execution
@@ -117,7 +111,6 @@
         </nav>
         <div class="p-6 border-t-2 border-accentLight border-dashed bg-white m-4 rounded-2xl">
             <p class="text-sm font-bold">Pratheeksha Prakash</p>
-            <p class="text-xs text-gray-500"> </p>
         </div>
     </aside>
 
@@ -143,7 +136,7 @@
                     </div>
                     <div class="text-left">
                         <p class="font-heading font-bold text-xl">Pratheeksha Prakash</p>
-                        <p class="text-accentBrown font-semibold">Aspiring Product Manager</p>
+                        <p class="text-accentBrown font-semibold">Product Manager</p>
                     </div>
                 </div>
             </div>
@@ -288,38 +281,45 @@
         </section>
 
         <section id="friction" class="min-h-screen p-10 lg:p-20 border-t-4 border-white">
-            <div class="max-w-5xl mx-auto">
+            <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-16">
                     <div class="inline-flex items-center justify-center w-20 h-20 bg-alertRed/10 rounded-full mb-6">
                         <i class="fa-solid fa-triangle-exclamation text-4xl text-alertRed"></i>
                     </div>
-                    <h2 class="text-5xl font-heading font-extrabold text-textDark mb-4">The Core Problem: Trust</h2>
-                    <p class="text-2xl font-bold text-alertRed">Delivery Anxiety</p>
+                    <h2 class="text-5xl font-heading font-extrabold text-textDark mb-4">The Friction: Trust & Support</h2>
+                    <p class="text-2xl font-bold text-alertRed">Where the experience breaks down</p>
                 </div>
 
-                <div class="glass-card rounded-[40px] p-10 md:p-16 border-alertRed/30 overflow-hidden relative">
-                    <div class="absolute top-0 right-0 w-64 h-64 bg-alertRed/5 rounded-full transform translate-x-1/2 -translate-y-1/2"></div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 relative z-10 items-center">
-                        <div>
-                            <div class="bg-white p-6 rounded-2xl border border-gray-200 mb-6 shadow-sm">
-                                <p class="text-gray-500 uppercase text-xs font-bold mb-1">Promised</p>
-                                <p class="text-3xl font-heading font-bold text-successGreen">60 minutes.</p>
-                            </div>
-                            <div class="bg-alertRed text-white p-6 rounded-2xl shadow-lg mb-8">
-                                <p class="text-white/70 uppercase text-xs font-bold mb-1">Actual</p>
-                                <p class="text-3xl font-heading font-bold">Days later. No updates.</p>
-                            </div>
-                            <p class="text-xl text-gray-700 leading-relaxed">
-                                This isn't just a bad experience — it's the <strong>ultimate trust killer</strong> for pet parents who run out of food.
-                            </p>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Friction 1: Delivery -->
+                    <div class="glass-card rounded-[30px] p-8 border-t-4 border-alertRed relative overflow-hidden flex flex-col">
+                        <h3 class="text-2xl font-bold mb-4 flex items-center gap-3"><i class="fa-solid fa-truck-fast text-alertRed"></i> Delivery Anxiety</h3>
+                        <div class="bg-white p-4 rounded-xl border border-gray-200 mb-4 shadow-sm flex-1">
+                            <p class="text-gray-500 uppercase text-xs font-bold">Promised</p>
+                            <p class="text-xl font-heading font-bold text-successGreen">60 minutes.</p>
                         </div>
-                        <div class="bg-bgWarm p-8 rounded-3xl border-2 border-dashed border-alertRed/50">
-                            <h3 class="text-2xl font-bold mb-4 flex items-center gap-3"><i class="fa-solid fa-arrow-right-from-bracket text-alertRed"></i> The Result</h3>
-                            <p class="text-lg text-gray-700 mb-6">Users open Blinkit or Zepto instead.</p>
-                            <div class="bg-white p-4 rounded-xl text-center shadow-inner font-bold text-textDark">
-                                <i class="fa-solid fa-clock-rotate-left mr-2"></i> Delivery failure resets the loyalty clock.
-                            </div>
+                        <div class="bg-alertRed text-white p-4 rounded-xl shadow-lg mb-4 flex-1">
+                            <p class="text-white/70 uppercase text-xs font-bold">Actual</p>
+                            <p class="text-xl font-heading font-bold">Days later.</p>
+                        </div>
+                        <p class="text-sm text-gray-700">The ultimate trust killer for pet parents who run out of food, forcing them to open Blinkit or Zepto instead.</p>
+                    </div>
+
+                    <!-- Friction 2: Customer Service -->
+                    <div class="glass-card rounded-[30px] p-8 border-t-4 border-alertRed relative overflow-hidden flex flex-col">
+                        <h3 class="text-2xl font-bold mb-4 flex items-center gap-3"><i class="fa-solid fa-headset text-alertRed"></i> Poor Support</h3>
+                        <p class="text-gray-700 mb-6 flex-1">Customer service is not good and users are highly dissatisfied with the way issues are resolved. Reaching out for delayed orders or wrong items feels like shouting into a void.</p>
+                        <div class="bg-bgWarm p-4 rounded-xl text-center shadow-inner font-bold text-textDark text-sm">
+                            <i class="fa-solid fa-comment-slash mr-2"></i> Unresolved issues destroy brand loyalty.
+                        </div>
+                    </div>
+
+                    <!-- Friction 3: Vet Quality -->
+                    <div class="glass-card rounded-[30px] p-8 border-t-4 border-alertRed relative overflow-hidden flex flex-col">
+                        <h3 class="text-2xl font-bold mb-4 flex items-center gap-3"><i class="fa-solid fa-user-doctor text-alertRed"></i> Vet Trust Deficit</h3>
+                        <p class="text-gray-700 mb-4 flex-1">Users have found that many of the tele-consult Vets were not up to standard. <a href="https://www.reddit.com/r/IndianPets/comments/1taa0t4/psa_for_bangalore_pet_owners_supertails/" target="_blank" class="text-accentPop underline font-bold hover:text-alertRed transition-colors">Recent community PSAs</a> on Reddit highlight grave concerns regarding incorrect medical advice, hurting the core telehealth offering.</p>
+                        <div class="bg-bgWarm p-4 rounded-xl text-center shadow-inner font-bold text-textDark text-sm">
+                            <i class="fa-solid fa-heart-crack mr-2"></i> Medical trust is hard to win back.
                         </div>
                     </div>
                 </div>
@@ -331,38 +331,46 @@
             
             <div class="max-w-6xl mx-auto relative z-10">
                 <div class="mb-16 text-center">
-                    <h2 class="text-4xl md:text-5xl font-heading font-extrabold text-white inline-block border-b-4 border-accentPop pb-2 mb-4">My Proposed Solution</h2>
-                    <p class="text-xl text-accentLight mt-4 max-w-2xl mx-auto">Feature: Delivery Promise Score</p>
-                    <p class="text-gray-300 mt-2">Show a real-time reliability signal at checkout based on stock and courier SLA data.</p>
+                    <h2 class="text-4xl md:text-5xl font-heading font-extrabold text-white inline-block border-b-4 border-accentPop pb-2 mb-4">Proposed Fixes</h2>
+                    <p class="text-xl text-accentLight mt-4 max-w-2xl mx-auto">Tackling the Trust Deficit: Support, Delivery, and Vet Quality</p>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     
                     <div>
                         <ul class="space-y-8 mb-10">
+                            <!-- Solution 1: AI Chatbot & Supercash -->
+                            <li class="flex gap-6">
+                                <div class="w-14 h-14 shrink-0 bg-accentPop rounded-2xl flex items-center justify-center text-2xl shadow-lg">
+                                    <i class="fa-solid fa-robot"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-bold mb-2">AI Support Chatbot & Supercash</h4>
+                                    <p class="text-gray-400 mb-2">Integrating an AI chatbot would help customers instantly, saving the company money while perfectly resolving common issues.</p>
+                                    <p class="text-sm text-accentLight border-l-2 border-accentPop pl-3"><i class="fa-solid fa-bolt mr-1"></i> <strong>Proactive Resolution:</strong> If the delivery is taking more time, the AI chatbot autonomously detects the delay and provides "Super Cash" to the user, shifting the narrative from "They failed" to "They compensated me."</p>
+                                </div>
+                            </li>
+                            <!-- Solution 2: Vet Credentials -->
+                            <li class="flex gap-6">
+                                <div class="w-14 h-14 shrink-0 bg-successGreen rounded-2xl flex items-center justify-center text-2xl shadow-lg">
+                                    <i class="fa-solid fa-user-check"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-bold mb-2">Vet Credibility & Transparency</h4>
+                                    <p class="text-gray-400">To fix the Vet quality trust issue, we must prominently share the specific <strong>years of experience</strong> the vets have and their exact <strong>degrees</strong> (e.g., BVSc & AH) on their profile cards before booking to regain trust from the user.</p>
+                                </div>
+                            </li>
+                            <!-- Solution 3: Delivery Promise Score -->
                             <li class="flex gap-6">
                                 <div class="w-14 h-14 shrink-0 bg-accentBrown rounded-2xl flex items-center justify-center text-2xl shadow-lg">
                                     <i class="fa-solid fa-calculator"></i>
                                 </div>
                                 <div>
-                                    <h4 class="text-xl font-bold mb-2">Real-Time Calculation</h4>
-                                    <p class="text-gray-400">Dynamic calculation based on user pin code, local warehouse stock, and courier metrics.</p>
-                                </div>
-                            </li>
-                            <li class="flex gap-6">
-                                <div class="w-14 h-14 shrink-0 bg-accentBrown rounded-2xl flex items-center justify-center text-2xl shadow-lg">
-                                    <i class="fa-solid fa-shield-halved"></i>
-                                </div>
-                                <div>
-                                    <h4 class="text-xl font-bold mb-2">Auto-Protection Protocol</h4>
-                                    <p class="text-gray-400">If score < 90%, auto-apply a 5% wallet credit explicitly communicating potential delays.</p>
+                                    <h4 class="text-xl font-bold mb-2">Delivery Promise Score</h4>
+                                    <p class="text-gray-400">Dynamic calculation based on user pin code, local warehouse stock, and courier metrics to set accurate expectations at checkout.</p>
                                 </div>
                             </li>
                         </ul>
-                        <div class="bg-accentPop/20 border-l-4 border-accentPop p-6 rounded-r-2xl">
-                            <p class="text-xl font-bold text-accentLight">Goal:</p>
-                            <p class="text-lg">Shift narrative from "They failed" to <span class="text-white font-black bg-accentPop px-2 py-1 rounded">"They compensated me."</span></p>
-                        </div>
                     </div>
 
                     <div class="bg-white text-textDark p-8 rounded-[30px] shadow-2xl relative transform lg:rotate-2 hover:rotate-0 transition-transform duration-500">
@@ -382,10 +390,10 @@
 
                         <div id="protection-alert" class="bg-[#FFF3F0] border-l-4 border-accentPop p-4 rounded-r-xl mb-6 transition-all duration-300">
                             <div class="flex items-center gap-2 mb-1">
-                                <i class="fa-solid fa-bolt text-accentPop"></i>
-                                <span class="font-bold text-accentPop">Delay Protection Active</span>
+                                <i class="fa-solid fa-robot text-accentPop"></i>
+                                <span class="font-bold text-accentPop">AI Delay Protection Active</span>
                             </div>
-                            <p class="text-sm text-gray-600">Get 5% Supercash if order is delayed beyond 60 mins.</p>
+                            <p class="text-sm text-gray-600">Our AI Bot will auto-credit 5% Supercash to your wallet if the order is delayed beyond 60 mins.</p>
                         </div>
                         
                         <div id="standard-alert" class="bg-green-50 border-l-4 border-successGreen p-4 rounded-r-xl mb-6 hidden transition-all duration-300">
@@ -409,37 +417,37 @@
             <div class="max-w-5xl mx-auto">
                 <div class="mb-16">
                     <h2 class="text-4xl font-heading font-extrabold text-textDark inline-block border-b-4 border-accentPop pb-2 mb-4">Execution & Measurement</h2>
-                    <p class="text-lg text-gray-700 max-w-3xl">How to track the success of the new feature and the immediate next steps if I joined tomorrow.</p>
+                    <p class="text-lg text-gray-700 max-w-3xl">How to track the success of the new features and the immediate next steps if I joined tomorrow.</p>
                 </div>
 
                 <h3 class="text-2xl font-bold mb-8 flex items-center"><i class="fa-solid fa-chart-line text-accentPop mr-3"></i> How I'd Measure Success</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
                     <div class="glass-card p-6 rounded-2xl flex items-start gap-4">
-                        <div class="bg-white p-3 rounded-xl shadow-sm text-accentBrown"><i class="fa-solid fa-rotate text-xl"></i></div>
+                        <div class="bg-white p-3 rounded-xl shadow-sm text-accentBrown"><i class="fa-solid fa-robot text-xl"></i></div>
                         <div>
-                            <h4 class="font-bold text-lg">30-Day Repeat Rate</h4>
-                            <p class="text-sm text-gray-600 mt-1">Did a first-time buyer return? The ultimate subscription signal.</p>
+                            <h4 class="font-bold text-lg">AI Resolution Rate</h4>
+                            <p class="text-sm text-gray-600 mt-1">Percentage of tickets successfully closed by the chatbot without human escalation.</p>
                         </div>
                     </div>
                     <div class="glass-card p-6 rounded-2xl flex items-start gap-4">
-                        <div class="bg-white p-3 rounded-xl shadow-sm text-accentBrown"><i class="fa-solid fa-truck-fast text-xl"></i></div>
+                        <div class="bg-white p-3 rounded-xl shadow-sm text-accentBrown"><i class="fa-solid fa-user-doctor text-xl"></i></div>
                         <div>
-                            <h4 class="font-bold text-lg">Delivery Success SLA</h4>
-                            <p class="text-sm text-gray-600 mt-1">Percentage of orders delivered precisely within the promised window.</p>
+                            <h4 class="font-bold text-lg">Vet Booking Conversion</h4>
+                            <p class="text-sm text-gray-600 mt-1">Increase in tele-consult bookings after adding degrees and experience badges.</p>
                         </div>
                     </div>
                     <div class="glass-card p-6 rounded-2xl flex items-start gap-4">
                         <div class="bg-white p-3 rounded-xl shadow-sm text-accentBrown"><i class="fa-solid fa-headset text-xl"></i></div>
                         <div>
                             <h4 class="font-bold text-lg">WISMO Ticket Volume</h4>
-                            <p class="text-sm text-gray-600 mt-1">Tracking drop in "Where is my order?" support queries.</p>
+                            <p class="text-sm text-gray-600 mt-1">Tracking drop in "Where is my order?" support queries reaching live agents.</p>
                         </div>
                     </div>
                     <div class="glass-card p-6 rounded-2xl flex items-start gap-4">
                         <div class="bg-white p-3 rounded-xl shadow-sm text-accentBrown"><i class="fa-solid fa-face-smile text-xl"></i></div>
                         <div>
-                            <h4 class="font-bold text-lg">NPS Trend</h4>
-                            <p class="text-sm text-gray-600 mt-1">Are we actively rebuilding trust among the core user base?</p>
+                            <h4 class="font-bold text-lg">CSAT & NPS Trend</h4>
+                            <p class="text-sm text-gray-600 mt-1">Are we actively rebuilding trust and satisfaction among the core user base?</p>
                         </div>
                     </div>
                 </div>
@@ -452,15 +460,15 @@
                         <li class="flex items-start gap-4">
                             <span class="flex-shrink-0 w-8 h-8 rounded-full bg-accentPop text-white flex items-center justify-center font-bold">1</span>
                             <div>
-                                <h4 class="font-bold text-xl text-textDark">Map Churn Against Order History</h4>
-                                <p class="text-gray-600 mt-1">Isolate which delivery delay threshold causes a user to go permanently inactive. Is it one late order? Two? Does it depend on regular food vs. prescriptions?</p>
+                                <h4 class="font-bold text-xl text-textDark">Vet Credibility Audit</h4>
+                                <p class="text-gray-600 mt-1">Immediately audit the current roster of tele-consult vets, compile their degrees and years of experience, and push a UI update to display these trust signals.</p>
                             </div>
                         </li>
                         <li class="flex items-start gap-4">
                             <span class="flex-shrink-0 w-8 h-8 rounded-full bg-accentPop text-white flex items-center justify-center font-bold">2</span>
                             <div>
-                                <h4 class="font-bold text-xl text-textDark">Sharpen the DPS Trigger</h4>
-                                <p class="text-gray-600 mt-1">Use the threshold data to define exactly when the 90% Delay Protection Offer should trigger, making it a data-backed decision rather than a gut feeling.</p>
+                                <h4 class="font-bold text-xl text-textDark">Deploy AI Agent & Supercash Protocol</h4>
+                                <p class="text-gray-600 mt-1">Integrate an AI support layer that recognizes breached SLAs and instantly triggers the "Supercash" compensation loop, drastically cutting down manual resolution times.</p>
                             </div>
                         </li>
                     </ul>
